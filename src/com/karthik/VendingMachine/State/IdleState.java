@@ -2,11 +2,11 @@ package com.karthik.VendingMachine.State;
 
 import com.karthik.VendingMachine.Service.VendingMachine;
 
-public class NoCoinState implements State
+public class IdleState implements State
 {
 	VendingMachine vendingMachine;
 
-	public NoCoinState(VendingMachine vendingMachine)
+	public IdleState(VendingMachine vendingMachine)
 	{
 		this.vendingMachine = vendingMachine;
 	}
@@ -14,20 +14,20 @@ public class NoCoinState implements State
 	@Override
 	public void insertCoin(double amount)
 	{
-		vendingMachine.setAmount(amount);
 		vendingMachine.setVendingMachineCurrentState(vendingMachine.getCoinInsertedState());
+		vendingMachine.getVendingMachineCurrentState().insertCoin(amount);
 	}
 
 	@Override
 	public void pressButton(int aisleNumber)
 	{
-		throw new IllegalStateException("No Coin Inserted");
+		System.out.println("Please Insert a Coin !!!");
 	}
 
 	@Override
 	public void dispense(int aisleNumber)
 	{
-		throw new IllegalStateException("No Coin Inserted");
+		System.out.println("Please Insert a Coin !!!");
 	}
 
 }

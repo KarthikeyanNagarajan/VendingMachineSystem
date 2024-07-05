@@ -3,37 +3,40 @@ package com.karthik.VendingMachine.Service;
 import com.karthik.VendingMachine.Inventory.Inventory;
 import com.karthik.VendingMachine.Inventory.Product;
 import com.karthik.VendingMachine.State.CoinInsertedState;
-import com.karthik.VendingMachine.State.DispenseState;
-import com.karthik.VendingMachine.State.NoCoinState;
+import com.karthik.VendingMachine.State.IdleState;
+import com.karthik.VendingMachine.State.ProductDispenseState;
+import com.karthik.VendingMachine.State.ProductSelectionState;
 import com.karthik.VendingMachine.State.State;
 
 public class VendingMachine
 {
-	private NoCoinState noCoinState;
+	private IdleState idleState;
 	private CoinInsertedState coinInsertedState;
-	private DispenseState dispenseState;
+	private ProductSelectionState selectionState;
+	private ProductDispenseState dispenseState;
 	private State vendingMachineCurrentState;
 	private Inventory inventory;
 	private double amount;
 
 	public VendingMachine(int AISLE_COUNT)
 	{
-		noCoinState = new NoCoinState(this);
+		idleState = new IdleState(this);
 		coinInsertedState = new CoinInsertedState(this);
-		dispenseState = new DispenseState(this);
-		vendingMachineCurrentState = noCoinState;
+		selectionState = new ProductSelectionState(this);
+		dispenseState = new ProductDispenseState(this);
+		vendingMachineCurrentState = idleState;
 		amount = 0.0;
 		inventory = new Inventory(AISLE_COUNT);
 	}
 
-	public NoCoinState getNoCoinState()
+	public IdleState getIdleState()
 	{
-		return noCoinState;
+		return idleState;
 	}
 
-	public void setNoCoinState(NoCoinState noCoinState)
+	public void setIdleState(IdleState idleState)
 	{
-		this.noCoinState = noCoinState;
+		this.idleState = idleState;
 	}
 
 	public CoinInsertedState getCoinInsertedState()
@@ -46,12 +49,22 @@ public class VendingMachine
 		this.coinInsertedState = coinInsertedState;
 	}
 
-	public DispenseState getDispenseState()
+	public ProductSelectionState getProductSelectionState()
+	{
+		return selectionState;
+	}
+
+	public void setProductSelectionState(ProductSelectionState selectionState)
+	{
+		this.selectionState = selectionState;
+	}
+
+	public ProductDispenseState getProductDispenseState()
 	{
 		return dispenseState;
 	}
 
-	public void setDispenseState(DispenseState dispenseState)
+	public void setProductDispenseState(ProductDispenseState dispenseState)
 	{
 		this.dispenseState = dispenseState;
 	}
@@ -100,7 +113,6 @@ public class VendingMachine
 	public void pressButton(int aisleNumber)
 	{
 		this.vendingMachineCurrentState.pressButton(aisleNumber);
-		this.vendingMachineCurrentState.dispense(aisleNumber);
 	}
 
 	public void addProduct(Product product)

@@ -32,7 +32,7 @@ public class Inventory
 
 			aisleProductMap.put(availableAisles.poll(), product);
 		}
-		productIdToCountMap.put(productCount, productCount + 1);
+		productIdToCountMap.put(productId, productCount + 1);
 	}
 
 	public Product getProduct(int aisleNumber)

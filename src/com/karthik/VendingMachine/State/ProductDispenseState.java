@@ -4,11 +4,11 @@ import com.karthik.VendingMachine.Inventory.Inventory;
 import com.karthik.VendingMachine.Inventory.Product;
 import com.karthik.VendingMachine.Service.VendingMachine;
 
-public class DispenseState implements State
+public class ProductDispenseState implements State
 {
 	VendingMachine vendingMachine;
 
-	public DispenseState(VendingMachine vendingMachine)
+	public ProductDispenseState(VendingMachine vendingMachine)
 	{
 		this.vendingMachine = vendingMachine;
 	}
@@ -16,13 +16,13 @@ public class DispenseState implements State
 	@Override
 	public void insertCoin(double amount)
 	{
-		throw new IllegalStateException("Product Getting Dispense");
+		System.out.println("Product Getting Dispense !!!");
 	}
 
 	@Override
 	public void pressButton(int aisleNumber)
 	{
-		throw new IllegalStateException("Product Getting Dispense");
+		System.out.println("Product Getting Dispense !!!");
 	}
 
 	@Override
@@ -32,13 +32,12 @@ public class DispenseState implements State
 		Product product = inventory.getProduct(aisleNumber);
 
 		inventory.deductProductCount(aisleNumber);
-
 		double change = vendingMachine.getAmount() - product.getPrice();
+
+		System.out.println(product.getName() + " is getting dispensed. Collect Back Cash " + change);
+
 		vendingMachine.setAmount(0);
-
-		vendingMachine.setVendingMachineCurrentState(vendingMachine.getNoCoinState());
-
-		System.out.println("Product With id " + product.getId() + " getting dispensed. Change is " + change);
+		vendingMachine.setVendingMachineCurrentState(vendingMachine.getIdleState());
 	}
 
 }
