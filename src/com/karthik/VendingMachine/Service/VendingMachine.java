@@ -10,10 +10,10 @@ import com.karthik.VendingMachine.State.State;
 
 public class VendingMachine
 {
-	private IdleState idleState;
-	private CoinInsertedState coinInsertedState;
-	private ProductSelectionState selectionState;
-	private ProductDispenseState dispenseState;
+	private State idleState;
+	private State coinInsertedState;
+	private State selectionState;
+	private State dispenseState;
 	private State vendingMachineCurrentState;
 	private Inventory inventory;
 	private double amount;
@@ -29,42 +29,42 @@ public class VendingMachine
 		inventory = new Inventory(AISLE_COUNT);
 	}
 
-	public IdleState getIdleState()
+	public State getIdleState()
 	{
 		return idleState;
 	}
 
-	public void setIdleState(IdleState idleState)
+	public void setIdleState(State idleState)
 	{
 		this.idleState = idleState;
 	}
 
-	public CoinInsertedState getCoinInsertedState()
+	public State getCoinInsertedState()
 	{
 		return coinInsertedState;
 	}
 
-	public void setCoinInsertedState(CoinInsertedState coinInsertedState)
+	public void setCoinInsertedState(State coinInsertedState)
 	{
 		this.coinInsertedState = coinInsertedState;
 	}
 
-	public ProductSelectionState getProductSelectionState()
+	public State getProductSelectionState()
 	{
 		return selectionState;
 	}
 
-	public void setProductSelectionState(ProductSelectionState selectionState)
+	public void setProductSelectionState(State selectionState)
 	{
 		this.selectionState = selectionState;
 	}
 
-	public ProductDispenseState getProductDispenseState()
+	public State getProductDispenseState()
 	{
 		return dispenseState;
 	}
 
-	public void setProductDispenseState(ProductDispenseState dispenseState)
+	public void setProductDispenseState(State dispenseState)
 	{
 		this.dispenseState = dispenseState;
 	}
@@ -107,11 +107,10 @@ public class VendingMachine
 	public void insertCoin(double amount)
 	{
 		this.vendingMachineCurrentState.insertCoin(amount);
-		System.out.println(amount + " coin is inserted.");
 	}
 
 	public void pressButton(int aisleNumber)
-	{
+	{		
 		this.vendingMachineCurrentState.pressButton(aisleNumber);
 	}
 

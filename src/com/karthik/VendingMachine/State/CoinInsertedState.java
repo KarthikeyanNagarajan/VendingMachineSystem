@@ -14,12 +14,15 @@ public class CoinInsertedState implements State
 	@Override
 	public void insertCoin(double amount)
 	{
+		System.out.println(amount + " coin is inserted.");
 		vendingMachine.setAmount(vendingMachine.getAmount() + amount);
+		System.out.println("Total -> " + vendingMachine.getAmount());
 	}
 
 	@Override
 	public void pressButton(int aisleNumber)
 	{
+		System.out.println("Button " + aisleNumber + " is pressed.");
 		vendingMachine.setVendingMachineCurrentState(vendingMachine.getProductSelectionState());
 		vendingMachine.getVendingMachineCurrentState().pressButton(aisleNumber);
 	}
